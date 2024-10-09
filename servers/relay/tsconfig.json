@@ -30,6 +30,7 @@
     "outDir": "./dist",
     "rootDir": "./src",
     "target": "es6",
-    "module": "commonjs"
+    "module": "commonjs",
+    "types": ["node", "pino-std-serializers"]
   }
 }

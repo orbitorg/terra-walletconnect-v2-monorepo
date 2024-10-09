@@ -1,10 +1,15 @@
-FROM nginx:1.19-alpine
+FROM nginx:1.27.2-alpine
 
 RUN apk add --update --no-cache openssl-dev libffi-dev  musl-dev python3-dev py3-pip gcc openssl bash && \
   ln -fs /dev/stdout /var/log/nginx/access.log && \
   ln -fs /dev/stdout /var/log/nginx/error.log
 
-RUN CRYPTOGRAPHY_DONT_BUILD_RUST=1 pip3 install certbot-dns-cloudflare
+# Create a virtual environment
+RUN python3 -m venv /opt/venv
+
+RUN  . /opt/venv/bin/activate && CRYPTOGRAPHY_DONT_BUILD_RUST=1 pip3 install certbot-dns-cloudflare
+
+ENV PATH="/opt/venv/bin:$PATH"
 
 COPY ./nginx.conf /etc/nginx/nginx.conf
 COPY ./letsencrypt.conf /etc/nginx/letsencrypt.conf

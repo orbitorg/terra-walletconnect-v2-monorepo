@@ -41,31 +41,30 @@ export declare namespace SubscriptionEvent {
 }
 
 export type SubscriptionEntries<T> = Record<string, SubscriptionParams<T>>;
-
 export abstract class ISubscription<Data> extends IEvents {
-  public abstract subscriptions = new Map<string, SubscriptionParams<Data>>();
+         public abstract subscriptions: Map<string, SubscriptionParams<Data>>;
 
-  public abstract readonly length: number;
+         public abstract readonly length: number;
 
-  public abstract readonly topics: string[];
+         public abstract readonly topics: string[];
 
-  public abstract readonly values: SubscriptionParams<Data>[];
+         public abstract readonly values: SubscriptionParams<Data>[];
 
-  constructor(public client: IClient, public logger: Logger, public context: string) {
-    super();
-  }
+         constructor(public client: IClient, public logger: Logger, public context: string) {
+           super();
+         }
 
-  public abstract init(): Promise<void>;
+         public abstract init(): Promise<void>;
 
-  public abstract set(topic: string, data: Data, opts: SubscriptionOptions): Promise<void>;
+         public abstract set(topic: string, data: Data, opts: SubscriptionOptions): Promise<void>;
 
-  public abstract get(topic: string): Promise<Data>;
+         public abstract get(topic: string): Promise<Data>;
 
-  public abstract update(topic: string, update: Partial<Data>): Promise<void>;
+         public abstract update(topic: string, update: Partial<Data>): Promise<void>;
 
-  public abstract delete(topic: string, reason: Reason): Promise<void>;
+         public abstract delete(topic: string, reason: Reason): Promise<void>;
 
-  // ---------- Protected ----------------------------------------------- //
+         // ---------- Protected ----------------------------------------------- //
 
-  protected abstract onPayload(payloadEvent: SubscriptionEvent.Payload): Promise<any>;
-}
+         protected abstract onPayload(payloadEvent: SubscriptionEvent.Payload): Promise<any>;
+       }
