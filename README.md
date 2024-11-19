@@ -70,7 +70,5 @@ LGPL-3.0
 
 ---
 yarn
-make bootstrap-lerna
-make build-lerna
-make build-container
 make build
+make deploy
